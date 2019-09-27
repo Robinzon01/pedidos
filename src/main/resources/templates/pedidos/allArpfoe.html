@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+	<th:block th:include="fragments/navbarTransparent"></th:block>
+
+	<div class="main">
+		<th:block th:include="fragments/navbarPrimary"></th:block>
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+
+						<div class="title">
+							<h2>TABLA DE PEDIDOS</h2>
+						</div>
+
+						<table class="table table-responsive highlight">
+							<thead>
+								<tr>
+								    <th>Pedidos</th>
+									<th>Cliente</th>
+									<th>Vendedor</th>
+									<th>Fecha</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="article : ${articlesList}">
+								    <td th:text="${article.objIdArp.no_orden}"></td>
+									<td th:text="${article.no_cliente}"></td>
+									<td th:text="${article.no_vendedor}"></td>
+									<td th:text="${#dates.format(article.fecha_registro, 'dd-MMM-yyyy')}"></td>
+									<td>
+									   <a th:href="@{/arpfoe/{id}(id=${article.objIdArp.no_orden})}"><i class="fab fa-readme"></i></a>
+									</td>
+									<td>
+										<a th:href="@{/arpfoe/{id}/edit(id=${article.objIdArp.no_orden})}"><i class="far fa-edit"></i></a>
+								    </td>
+									<td>
+										<a th:href="@{/arpfoe/{id}/delete(id=${article.objIdArp.no_orden})}"><i class="fas fa-trash-alt"></i></a>
+								    </td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<br> &nbsp;&nbsp;&nbsp; <br>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2 col-sm-12">
+						<!--include if you want to select pagesize: 5,10 -->
+						<!--
+                    <div>
+                        <select id="pageSizeSelect">
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                                    th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}"></option>
+                        </select>
+                    </div>-->
+
+						<div th:if="${articlesList.totalPages != 1}" class="section">
+							<ul class="pagination pagination-primary">
+								<li class="page-item"
+									th:class="${articlesList.number == 0} ? disabled"><a
+									class="page-link"
+									th:href="@{/arpfoes/(pageSize=${selectedPageSize}, page=1)}">«</a>
+								</li>
+								<li class="page-item"
+									th:class="${articlesList.number == 0} ? disabled"><a
+									class="page-link"
+									th:href="@{/arpfoes/(pageSize=${selectedPageSize}, page=${articlesList.number})}">←</a>
+								</li>
+								<li
+									th:class="${articlesList.number == (page - 1)} ? 'active page-item'"
+									th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+									<a class="page-link"
+									th:href="@{/arpfoes/(pageSize=${selectedPageSize}, page=${page})}"
+									th:text="${page}"></a>
+								</li>
+								<li class="page-item"
+									th:class="${articlesList.number + 1 == articlesList.totalPages} ? disabled">
+									<a class="page-link"
+									th:href="@{/arpfoes/(pageSize=${selectedPageSize}, page=${articlesList.number + 2})}">→</a>
+								</li>
+								<li class="page-item"
+									th:class="${articlesList.number + 1 == articlesList.totalPages} ? disabled">
+									<a class="page-link"
+									th:href="@{/arpfoes/(pageSize=${selectedPageSize}, page=${articlesList.totalPages})}">»</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+		</div>
+	</div>
+
+
+
+
+
+	<th:block th:include="fragments/footer"></th:block>
+
+	<th:block th:include="fragments/scripts"></th:block>
+</body>
+
+</html>

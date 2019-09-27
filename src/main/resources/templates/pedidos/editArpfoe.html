@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<th:block th:include="fragments/head"></th:block>
+
+<body class="index-page sidebar-collapse">
+<th:block th:include="fragments/navbarTransparent"></th:block>
+
+<div class="main">
+    
+    <th:block th:include="fragments/navbarPrimary"></th:block>
+    
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-sm-12">
+                    <div class="title">
+                        <h2>Editar Pedido</h2>
+                    </div>
+                    <form th:object="${arpfoe}" th:action="@{/arpfoe/{id}/update(id=${arpfoe.objIdArp.no_orden})}" th:method="post">
+
+                        <div class="form-group">
+                            <input th:field="*{objIdArp.no_orden}" id="no_orden" type="text" class="form-control validate disabled">
+                            <label for="no_orden">Pedidos</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input th:field="*{no_cliente}" id="author" type="text" class="form-control validate">
+                            <label for="author">CLIENTE</label>
+                            <span class="text-danger errorMsg" th:if="${#fields.hasErrors('no_cliente')}" th:errors="*{no_cliente}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input th:field="*{no_vendedor}" id="no_vendedor" type="text" class="form-control validate">
+                            <label for="author">VENDEDOR</label>
+                            <span class="text-danger errorMsg" th:if="${#fields.hasErrors('no_vendedor')}" th:errors="*{no_vendedor}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input th:field="*{fecha_registro}" id="category" type="text" class="form-control validate">
+                            <label for="category">FECHA REGISTRO</label>
+                            <span class="text-danger errorMsg" th:if="${#fields.hasErrors('fecha_registro')}" th:errors="*{fecha_registro}"></span>
+                        </div>
+
+<!--                         <div class="form-group"> -->
+<!--                             <textarea th:field="*{description}" id="description" class="form-control" rows="6"></textarea> -->
+<!--                             <label for="description">Description</label> -->
+<!--                             <span class="text-danger errorMsg" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span> -->
+<!--                         </div> -->
+
+<!--                         <div class="form-group"> -->
+<!--                             <textarea th:field="*{content}" id="content" class="form-control" rows="16"></textarea> -->
+<!--                             <label for="content"><h6>Content</h6></label> -->
+<!--                             <span class="text-danger errorMsg" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span> -->
+<!--                         </div> -->
+
+                        <button type="submit" class="btn btn-dark">Save</button> <a class="btn btn-primary" th:href="@{'/articles'}">Cancel</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:include="fragments/footer"></th:block>
+<th:block th:include="fragments/scripts"></th:block>
+</body>
+
+</html>
